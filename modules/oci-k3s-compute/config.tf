@@ -85,6 +85,11 @@ resource "oci_core_instance_configuration" "configuration_ampere_a1" {
       }
     }
   }
+
+  lifecycle {
+    ignore_changes = [instance_details[0].launch_details[0].source_details[0].image_id]
+  }
+
   # NOTE: This action will fail when reaching the Always Free tier limit.
   #       We can't update an attached configuration, we can't provision a new one if we're going over quota.
   # lifecycle {
