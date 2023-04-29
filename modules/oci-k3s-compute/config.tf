@@ -1,0 +1,151 @@
+# RSA key of size 4096 bits
+resource "tls_private_key" "root_ssh_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+data "template_cloudinit_config" "cloudinit" {
+  gzip          = true
+  base64_encode = true
+
+  part {
+    filename     = "init.cfg"
+    content_type = "text/cloud-config"
+    content      = var.cloud_init_config
+  }
+
+  part {
+    content_type = "text/x-shellscript"
+    content      = var.cloud_init_script
+  }
+}
+
+# TODO: implement a backup policy
+resource "oci_core_instance_configuration" "configuration_ampere_a1" {
+  for_each = var.ampere_a1_allocation_schema
+
+  compartment_id = var.oci_compartment_id
+  freeform_tags  = local.freeform_tags
+
+  display_name = format("K3s %ss - Ampere A1 - %s tier", title(local.node_role), each.key)
+  instance_details {
+    instance_type = "compute"
+
+    launch_details {
+      compartment_id = var.oci_compartment_id
+      freeform_tags  = local.freeform_tags
+      defined_tags   = var.k3s_tags
+
+      display_name        = format("k3s-%ss-ampere-a1-%s", local.node_role, each.key)
+      availability_domain = local.availability_domains.ampere_a1
+      create_vnic_details {
+        assign_private_dns_record = true
+        assign_public_ip          = true
+        freeform_tags             = local.freeform_tags
+        # TODO: modify NSGs to ensure proper hardening
+        nsg_ids = [
+          var.oci_network_security_groups["permit_ssh"],
+          var.oci_network_security_groups["permit_apiserver"]
+        ]
+        subnet_id = var.oci_vcn_subnet_id
+      }
+      instance_options {
+        are_legacy_imds_endpoints_disabled = true
+      }
+      agent_config {
+        is_management_disabled = "false"
+        is_monitoring_disabled = "false"
+
+        plugins_config {
+          desired_state = "DISABLED"
+          name          = "Vulnerability Scanning"
+        }
+
+        plugins_config {
+          desired_state = "ENABLED"
+          name          = "Bastion"
+        }
+      }
+
+      metadata = {
+        "ssh_authorized_keys" = tls_private_key.root_ssh_key.public_key_openssh
+        "user_data"           = data.template_cloudinit_config.cloudinit.rendered
+      }
+      extended_metadata = {}
+
+      shape = local.free_shapes.ampere_a1
+      shape_config {
+        memory_in_gbs = local.ampere_a1_tiers[each.key].memory
+        ocpus         = local.ampere_a1_tiers[each.key].cpu
+      }
+      source_details {
+        source_type             = "image"
+        boot_volume_size_in_gbs = 50
+        image_id                = data.oci_core_images.ampere_a1_instances.images[0].id
+      }
+    }
+  }
+  # NOTE: This action will fail when reaching the Always Free tier limit.
+  #       We can't update an attached configuration, we can't provision a new one if we're going over quota.
+  # lifecycle {
+  #   create_before_destroy = true
+  # }
+}
+
+/*
+# NOTE: Always Free tier won't allow more than 2 Instance Configurations
+resource "oci_core_instance_configuration" "masters_configuration_amd" {
+  compartment_id = var.oci_compartment_id
+  freeform_tags  = merge(var.shared_freeform_tags, local.compute_freeform_tags)
+
+  display_name = "K3s Masters - AMD"
+  instance_details {
+    instance_type = "compute"
+
+    launch_details {
+      compartment_id = var.oci_compartment_id
+      freeform_tags  = merge(var.shared_freeform_tags, local.compute_freeform_tags, local.freeform_tags)
+      defined_tags   = local.masters_defined_tags
+
+      display_name        = "k3s-masters-amd"
+      availability_domain = local.availability_domains.amd
+      create_vnic_details {
+        assign_private_dns_record = true
+        assign_public_ip          = true
+        freeform_tags             = merge(var.shared_freeform_tags, local.compute_freeform_tags)
+        nsg_ids = [
+          var.oci_network_security_groups["permit_ssh"],
+          var.oci_network_security_groups["permit_apiserver"]
+        ]
+        subnet_id = var.oci_vcn_subnet_id
+      }
+      instance_options {
+        are_legacy_imds_endpoints_disabled = true
+      }
+      agent_config {
+        are_all_plugins_disabled = true
+      }
+
+      metadata = {
+        "ssh_authorized_keys" = tls_private_key.root_ssh_key.public_key_openssh
+        "user_data"           = data.template_cloudinit_config.cloudinit.rendered
+      }
+      extended_metadata = {}
+
+      shape = local.free_shapes.amd
+      shape_config {
+        memory_in_gbs = 1
+        ocpus         = 1
+      }
+      source_details {
+        source_type             = "image"
+        boot_volume_size_in_gbs = 50
+        image_id                = data.oci_core_images.amd_instances.images[0].id
+      }
+    }
+  }
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+*/

@@ -1,0 +1,63 @@
+default_install_hook_types:
+  - pre-commit
+  - pre-push
+  - commit-msg
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      # Linting
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      # Git tidy
+      - id: check-merge-conflict
+      - id: check-vcs-permalinks
+      - id: forbid-new-submodules
+      # Cross platform
+      - id: check-case-conflict
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      # Security
+      - id: detect-private-key
+
+  - repo: https://github.com/jumanjihouse/pre-commit-hooks
+    rev: "3.0.0"
+    hooks:
+      - id: shellcheck
+        types: []
+        types_or: [file, shell]
+        files: (\.sh\.tpl|\.sh|\.bash)$
+        args: ["-S", "warning"]
+
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.77.1
+    hooks:
+      - id: terraform_providers_lock
+        # Don't create a lock at the component level, just at the root one
+        exclude: "^modules\/components\/.*$"
+        stages:
+          - push
+        args:
+          - --tf-init-args=-input=false
+          - --tf-init-args=-backend=false
+      - id: terraform_validate
+        args:
+          - --tf-init-args=-backend=false
+          - --hook-config=--retry-once-with-cleanup=true
+      - id: terraform_tfsec
+        stages:
+          - push
+      - id: terraform_fmt
+      - id: terraform_docs
+        files: (\.tf|\.terraform\.lock\.hcl|\.terraform-docs\.yml|header\.md)$
+        args:
+          - --hook-config=--create-file-if-not-exist=true
+          - --hook-config=--path-to-file=README.md
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v2.1.1
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
+        args: [feat, fix, update, chore, test]

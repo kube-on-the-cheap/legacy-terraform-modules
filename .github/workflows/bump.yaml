@@ -1,0 +1,24 @@
+name: Bump version and create a GitHub Release
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - .github/**
+      - docs/**
+      - ./*
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    outputs:
+      new_tag: steps.generate_tag.outputs.new_tag
+      # TODO: Use the changelog from Ansible Collection
+      changelog: steps.generate_tag.outputs.changelog
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v3
+      - name: Generate a new tag
+        id: generate_tag
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
