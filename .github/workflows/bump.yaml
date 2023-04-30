@@ -12,8 +12,8 @@ jobs:
   bump-version:
     runs-on: ubuntu-latest
     outputs:
-      new_tag: steps.generate_tag.outputs.new_tag
-      changelog: steps.generate_tag.outputs.changelog
+      new_tag: ${{ steps.generate_tag.outputs.new_tag }}
+      changelog: ${{ steps.generate_tag.outputs.changelog }}
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v3
