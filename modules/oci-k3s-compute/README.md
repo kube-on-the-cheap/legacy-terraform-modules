@@ -1,6 +1,8 @@
 # oci-compute
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+This module creates an Instance Pool dedicated to becoming either K3s masters or workers. In case of masters, a Load Balancer is provisioned to expose port 6443.
+
 ## Requirements
 
 | Name | Version |
@@ -19,10 +21,6 @@
 | <a name="provider_random"></a> [random](#provider\_random) | 3.4.3 |
 | <a name="provider_template"></a> [template](#provider\_template) | 2.2.0 |
 | <a name="provider_tls"></a> [tls](#provider\_tls) | 4.0.1 |
-
-## Modules
-
-No modules.
 
 ## Resources
 

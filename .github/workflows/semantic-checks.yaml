@@ -8,12 +8,10 @@ on:
       - edited
       - synchronize
       - reopened
-    paths-ignore:
-      - .github/**
-      - docs/**
-      - "*"
+    paths:
+      - modules/**
 jobs:
-  verify-tag-config-collision:
+  tag-config-collision:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repo
@@ -34,5 +32,30 @@ jobs:
             echo "::notice ::Next tag is not present in git, proceeding."
             exit 0
           fi
+  one-module-per-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo, all branches, all commits
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Get changed directories
+        id: changed_module_dirs
+        uses: tj-actions/changed-files@v35.9.0
+        with:
+          json: true
+          dir_names: true
+          dir_names_exclude_root: true
+          files_ignore: |
+            modules/**/docs/*
+      - name: Count changed directories
+        id: changed_module_dirs_count
+        uses: mikefarah/yq@v4.33.3
+        with:
+          cmd: yq 'length' <(echo "${{ steps.changed_module_dirs.outputs.all_changed_files }}")
+      - name: Fail if changed module count is not 1
+        if: ${{ steps.changed_module_dirs_count.outputs.result > 1 }}
+        run: |
+          echo "::error ::You are attempting to change more than one module. Please limit your PR to one module."
+          exit 1
   # TODO: Add a CHANGELOG requirement
-  # TODO: Add a constraint to edit at most one module per PR
