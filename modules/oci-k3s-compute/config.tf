@@ -1,4 +1,3 @@
-# RSA key of size 4096 bits
 resource "tls_private_key" "root_ssh_key" {
   algorithm = "RSA"
   rsa_bits  = 4096
@@ -20,7 +19,6 @@ data "template_cloudinit_config" "cloudinit" {
   }
 }
 
-# TODO: implement a backup policy
 resource "oci_core_instance_configuration" "configuration_ampere_a1" {
   for_each = var.ampere_a1_allocation_schema
 
@@ -96,61 +94,3 @@ resource "oci_core_instance_configuration" "configuration_ampere_a1" {
   #   create_before_destroy = true
   # }
 }
-
-/*
-# NOTE: Always Free tier won't allow more than 2 Instance Configurations
-resource "oci_core_instance_configuration" "masters_configuration_amd" {
-  compartment_id = var.oci_compartment_id
-  freeform_tags  = merge(var.shared_freeform_tags, local.compute_freeform_tags)
-
-  display_name = "K3s Masters - AMD"
-  instance_details {
-    instance_type = "compute"
-
-    launch_details {
-      compartment_id = var.oci_compartment_id
-      freeform_tags  = merge(var.shared_freeform_tags, local.compute_freeform_tags, local.freeform_tags)
-      defined_tags   = local.masters_defined_tags
-
-      display_name        = "k3s-masters-amd"
-      availability_domain = local.availability_domains.amd
-      create_vnic_details {
-        assign_private_dns_record = true
-        assign_public_ip          = true
-        freeform_tags             = merge(var.shared_freeform_tags, local.compute_freeform_tags)
-        nsg_ids = [
-          var.oci_network_security_groups["permit_ssh"],
-          var.oci_network_security_groups["permit_apiserver"]
-        ]
-        subnet_id = var.oci_vcn_subnet_id
-      }
-      instance_options {
-        are_legacy_imds_endpoints_disabled = true
-      }
-      agent_config {
-        are_all_plugins_disabled = true
-      }
-
-      metadata = {
-        "ssh_authorized_keys" = tls_private_key.root_ssh_key.public_key_openssh
-        "user_data"           = data.template_cloudinit_config.cloudinit.rendered
-      }
-      extended_metadata = {}
-
-      shape = local.free_shapes.amd
-      shape_config {
-        memory_in_gbs = 1
-        ocpus         = 1
-      }
-      source_details {
-        source_type             = "image"
-        boot_volume_size_in_gbs = 50
-        image_id                = data.oci_core_images.amd_instances.images[0].id
-      }
-    }
-  }
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-*/
