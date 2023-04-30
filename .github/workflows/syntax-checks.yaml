@@ -1,8 +1,5 @@
 name: Syntax checks
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
