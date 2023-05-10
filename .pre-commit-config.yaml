@@ -49,8 +49,8 @@ repos:
           - --tf-init-args=-backend=false
       - id: terraform_validate
         args:
-          - --hook-config=--retry-once-with-cleanup=true
           - --tf-init-args=-backend=false
+          - --hook-config=--retry-once-with-cleanup=true
       - id: terraform_tfsec
         stages:
           - push

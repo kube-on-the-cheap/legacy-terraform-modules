@@ -8,26 +8,17 @@ on:
       - edited
       - synchronize
       - reopened
+  push:
+    branches:
+      - main
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the repo, all branches, all commits
-        uses: actions/checkout@v3
+      - uses: kube-on-the-cheap/action-asdf@v0.1.5
         with:
-          fetch-depth: 0
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v35.9.0
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.11"
-      - name: Run pre-commit on the changed files
-        if: steps.changed-files.outputs.any_changed == 'true'
-        uses: pre-commit/action@v3.0.0
-        with:
-          extra_args: --files ${{ steps.changed-files.outputs.all_changed_files }}
+          run-pre-commit: true
+
   links-check:
     runs-on: ubuntu-latest
     steps:
