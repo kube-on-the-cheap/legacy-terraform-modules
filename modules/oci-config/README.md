@@ -44,19 +44,19 @@ sed -i .bak  "s|^key_file=.*$|key_file=${new_key_file}|g" ~/.oci/config
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.4.0 |
-| <a name="requirement_config"></a> [config](#requirement\_config) | 0.2.4 |
+| <a name="requirement_config"></a> [config](#requirement\_config) | 0.2.8 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_config"></a> [config](#provider\_config) | 0.2.4 |
+| <a name="provider_config"></a> [config](#provider\_config) | 0.2.8 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [config_ini.config_oci](https://registry.terraform.io/providers/alabuel/config/0.2.4/docs/data-sources/ini) | data source |
+| [config_ini.config_oci](https://registry.terraform.io/providers/alabuel/config/0.2.8/docs/data-sources/ini) | data source |
 
 ## Inputs
 

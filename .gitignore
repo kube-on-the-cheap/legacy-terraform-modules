@@ -14,9 +14,10 @@ configs/**/.terraform.lock.hcl
 # Private keys, KUBECONFIGs and things that should not be available in Git
 **/outputs/**
 **/cache/**
-# I probably don't want these to
+# I probably don't want these too
 **/*.nope
 **/.DS_Store
+.vscode/**
 # Taskfile checksum ignores
 .task/checksum/**
 # Setup stuff
