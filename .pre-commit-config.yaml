@@ -2,6 +2,13 @@ default_install_hook_types:
   - pre-commit
   - pre-push
   - commit-msg
+# Stage names now match git hooks; requires pre-commit >= 3.2.0
+default_stages:
+  - post-checkout
+  - post-merge
+  - post-rewrite
+  - pre-commit
+  - pre-rebase
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -23,20 +30,18 @@ repos:
       - id: detect-private-key
 
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
-    rev: "3.0.0"
+    rev: 3.0.0
     hooks:
       - id: shellcheck
         types: []
         types_or: [file, shell]
         files: (\.sh\.tpl|\.sh|\.bash)$
-        args: ["-S", "warning"]
+        args: [-S, warning]
 
   - repo: https://github.com/antonbabenko/pre-commit-terraform
     rev: v1.77.1
     hooks:
       - id: terraform_providers_lock
-        # Don't create a lock at the component level, just at the root one
-        exclude: "^modules\/components\/.*$"
         stages:
           - push
         args:
@@ -55,6 +60,7 @@ repos:
         args:
           - --hook-config=--create-file-if-not-exist=true
           - --hook-config=--path-to-file=README.md
+
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v2.1.1
     hooks:
