@@ -42,14 +42,15 @@ repos:
     rev: v1.77.1
     hooks:
       - id: terraform_providers_lock
-        stages:
-          - push
         args:
           - --tf-init-args=-input=false
-          - --tf-init-args=-backend=false
+          - --args=-platform=linux_amd64
+          - --args=-platform=darwin_amd64
+          - --args=-platform=darwin_arm64
       - id: terraform_validate
         args:
-          - --tf-init-args=-backend=false
+          - --tf-init-args=-input=false
+          - --tf-init-args=-upgrade
           - --hook-config=--retry-once-with-cleanup=true
       - id: terraform_tfsec
         stages:
