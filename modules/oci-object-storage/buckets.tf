@@ -3,10 +3,8 @@ data "oci_objectstorage_namespace" "namespace" {
 }
 
 resource "oci_objectstorage_bucket" "buckets" {
-  for_each = var.oci_buckets
-
   compartment_id = var.oci_compartment_id
-  name           = each.key
+  name           = var.bucket_name
   namespace      = data.oci_objectstorage_namespace.namespace.namespace
 
   access_type   = "NoPublicAccess"
@@ -14,7 +12,7 @@ resource "oci_objectstorage_bucket" "buckets" {
   freeform_tags = local.config_freeform_tags
 
   kms_key_id   = var.oci_kms_id
-  storage_tier = each.value.storage_tier
+  storage_tier = var.bucket_storage_tier
 
   metadata              = {}
   object_events_enabled = false
@@ -28,7 +26,7 @@ resource "oci_objectstorage_bucket" "buckets" {
   #     }
   #     time_rule_locked = var.retention_rule_time_rule_locked
   # }
-  versioning = each.value.versioning
+  versioning = var.bucket_versioning
 
   depends_on = [
     oci_identity_policy.buckets_policy_allow_kms_access
@@ -36,12 +34,10 @@ resource "oci_objectstorage_bucket" "buckets" {
 }
 
 resource "oci_identity_policy" "buckets_policy_allow_kms_access" {
-  for_each = var.oci_buckets
-
   compartment_id = var.oci_tenancy_id
 
-  name        = "allow_${each.key}_key_access"
-  description = "Policy to allow bucket \"${each.key}\" to access KMS key ID used for its encryption"
+  name        = "allow_${var.bucket_name}_key_access"
+  description = "Policy to allow bucket \"${var.bucket_name}\" to access KMS key ID used for its encryption"
   statements = [
     "allow service objectstorage-${var.oci_region} to use keys in compartment id ${var.oci_compartment_id} where target.key.id = '${var.oci_kms_id}'"
   ]
