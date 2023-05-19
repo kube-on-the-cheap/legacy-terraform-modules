@@ -10,7 +10,7 @@ resource "oci_kms_key" "master_encryption_keys" {
   }
   management_endpoint = oci_kms_vault.vault.management_endpoint
 
-  freeform_tags = merge(var.shared_freeform_tags, local.kms_freeform_tags)
+  freeform_tags = var.shared_freeform_tags
   # SOFTWARE is free, HSM requires a monthly premium
   protection_mode = "SOFTWARE"
 

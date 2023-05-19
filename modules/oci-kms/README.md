@@ -35,7 +35,7 @@
 
 | Name | Description |
 |------|-------------|
-| <a name="output_generated_keys_ids"></a> [generated\_keys\_ids](#output\_generated\_keys\_ids) | The ID for each requested Key |
-| <a name="output_master_encryption_keys_ids"></a> [master\_encryption\_keys\_ids](#output\_master\_encryption\_keys\_ids) | The ID for each requested Master Encryption Key |
-| <a name="output_vault_id"></a> [vault\_id](#output\_vault\_id) | The Vault ID |
+| <a name="output_generated_keys"></a> [generated\_keys](#output\_generated\_keys) | The name and ID for each requested Key |
+| <a name="output_master_encryption_keys"></a> [master\_encryption\_keys](#output\_master\_encryption\_keys) | The name and ID for each requested Master Encryption Key |
+| <a name="output_vault"></a> [vault](#output\_vault) | The name and ID of the generated Vault |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
