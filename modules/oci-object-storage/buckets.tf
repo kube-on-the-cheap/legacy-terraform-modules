@@ -29,7 +29,7 @@ resource "oci_objectstorage_bucket" "buckets" {
   versioning = var.bucket_versioning
 
   depends_on = [
-    oci_identity_policy.buckets_policy_allow_kms_access
+    time_sleep.bucket_to_kms_policy_effective
   ]
 }
 
@@ -43,4 +43,10 @@ resource "oci_identity_policy" "buckets_policy_allow_kms_access" {
   ]
 
   freeform_tags = merge(var.shared_freeform_tags, local.object_storage_freeform_tags)
+}
+
+resource "time_sleep" "bucket_to_kms_policy_effective" {
+  create_duration = "30s"
+
+  depends_on = [oci_identity_policy.buckets_policy_allow_kms_access]
 }

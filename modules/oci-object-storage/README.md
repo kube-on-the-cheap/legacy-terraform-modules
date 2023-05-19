@@ -7,12 +7,14 @@
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.4.0 |
 | <a name="requirement_oci"></a> [oci](#requirement\_oci) | 4.87.0 |
+| <a name="requirement_time"></a> [time](#requirement\_time) | 0.9.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_oci"></a> [oci](#provider\_oci) | 4.87.0 |
+| <a name="provider_time"></a> [time](#provider\_time) | 0.9.1 |
 
 ## Resources
 
@@ -23,6 +25,7 @@
 | [oci_identity_policy.buckets_policy_allow_kms_access](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/identity_policy) | resource |
 | [oci_identity_user.bucket_user](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/identity_user) | resource |
 | [oci_objectstorage_bucket.buckets](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/objectstorage_bucket) | resource |
+| [time_sleep.bucket_to_kms_policy_effective](https://registry.terraform.io/providers/hashicorp/time/0.9.1/docs/resources/sleep) | resource |
 | [oci_objectstorage_namespace.namespace](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/data-sources/objectstorage_namespace) | data source |
 
 ## Inputs
