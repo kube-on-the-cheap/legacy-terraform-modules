@@ -1,3 +1,9 @@
+variable "oci_iam_bucket_user_domain" {
+  type        = string
+  description = "The OCI IAM user domain for email"
+  default     = "domain.com"
+}
+
 resource "oci_identity_user" "bucket_user" {
   count = var.bucket_create_s3_access_key ? 1 : 0
 
@@ -5,9 +11,8 @@ resource "oci_identity_user" "bucket_user" {
   description    = "Robot user to access bucket ${oci_objectstorage_bucket.buckets.name} via S3 Compatibility APIs"
   name           = format("s3_user_%s", oci_objectstorage_bucket.buckets.name)
 
-  defined_tags = { "IAM-UserInfo.UserType" = "robot" }
-  # PARAM: change this
-  email         = "info+${oci_objectstorage_bucket.buckets.name}@domain.co"
+  defined_tags  = { "IAM-UserInfo.UserType" = "robot" }
+  email         = "s3-access+${oci_objectstorage_bucket.buckets.name}@${var.oci_iam_bucket_user_domain}"
   freeform_tags = local.config_freeform_tags
 }
 

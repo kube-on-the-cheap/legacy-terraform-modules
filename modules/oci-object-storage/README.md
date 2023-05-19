@@ -34,6 +34,7 @@
 | <a name="input_bucket_storage_tier"></a> [bucket\_storage\_tier](#input\_bucket\_storage\_tier) | Bucket storage tier | `string` | n/a | yes |
 | <a name="input_bucket_versioning"></a> [bucket\_versioning](#input\_bucket\_versioning) | Bucket versioning status | `string` | n/a | yes |
 | <a name="input_oci_compartment_id"></a> [oci\_compartment\_id](#input\_oci\_compartment\_id) | The Compartment ID under which to provision resources | `string` | n/a | yes |
+| <a name="input_oci_iam_bucket_user_domain"></a> [oci\_iam\_bucket\_user\_domain](#input\_oci\_iam\_bucket\_user\_domain) | The OCI IAM user domain for email | `string` | `"domain.com"` | no |
 | <a name="input_oci_kms_id"></a> [oci\_kms\_id](#input\_oci\_kms\_id) | The OCI KMS master encryption key id to use. | `string` | n/a | yes |
 | <a name="input_oci_region"></a> [oci\_region](#input\_oci\_region) | (optional) describe your variable | `string` | n/a | yes |
 | <a name="input_oci_tenancy_id"></a> [oci\_tenancy\_id](#input\_oci\_tenancy\_id) | The Tenancy ID under which to provision resources | `string` | n/a | yes |
