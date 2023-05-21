@@ -25,4 +25,12 @@ resource "oci_core_instance_pool" "ampere_a1" {
       vnic_selection   = "PrimaryVnic"
     }
   }
+  lifecycle {
+    # This makes me throw up a little in my mouth - we're forced to destroy the whole Instance Pool
+    # at every config change since we can't have more that 2 Instance Configuration at any time
+    replace_triggered_by = [
+      oci_core_instance_configuration.configuration_ampere_a1[each.key].id
+    ]
+  }
+
 }
