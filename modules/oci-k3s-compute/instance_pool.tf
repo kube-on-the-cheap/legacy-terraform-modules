@@ -15,7 +15,7 @@ resource "oci_core_instance_pool" "ampere_a1" {
     fault_domains       = local.fault_domains.ampere_a1
   }
   dynamic "load_balancers" {
-    # Actual for_each content doesn't matter, the goal is to prevent creation of a backend set for workers
+    # NOTE: Actual for_each content doesn't matter, the goal is to prevent creation of a backend set for workers
     for_each = local.is_master ? { "create_master_lb_backend_set" : true } : {}
 
     content {
@@ -26,11 +26,17 @@ resource "oci_core_instance_pool" "ampere_a1" {
     }
   }
   lifecycle {
-    # This makes me throw up a little in my mouth - we're forced to destroy the whole Instance Pool
-    # at every config change since we can't have more that 2 Instance Configuration at any time
+    # FIXME: This makes me throw up a little in my mouth - we're forced to destroy the whole Instance Pool
+    #        at every config change since we can't have more that 2 Instance Configuration at any time
     replace_triggered_by = [
       oci_core_instance_configuration.configuration_ampere_a1[each.key].id
     ]
+  }
+
+  timeouts {
+    # NOTE: If the creation is not going through, we're either seeing a capped host or a butched config.
+    #       Either way, it's best to cut it short.
+    create = "15m"
   }
 
 }
