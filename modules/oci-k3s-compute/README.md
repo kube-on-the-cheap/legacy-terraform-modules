@@ -28,11 +28,12 @@ This module creates an Instance Pool dedicated to becoming either K3s masters or
 |------|------|
 | [oci_core_instance_configuration.configuration_ampere_a1](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/core_instance_configuration) | resource |
 | [oci_core_instance_pool.ampere_a1](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/core_instance_pool) | resource |
-| [oci_identity_dynamic_group.k3s_nodes](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/identity_dynamic_group) | resource |
 | [oci_identity_policy.k3s_allow_masters_write_buckets](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/identity_policy) | resource |
 | [oci_identity_policy.k3s_allow_nodes_ccm](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/identity_policy) | resource |
 | [oci_identity_policy.k3s_allow_nodes_read_secrets](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/identity_policy) | resource |
 | [oci_identity_policy.k3s_allow_nodes_update_self](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/identity_policy) | resource |
+| [oci_identity_policy.k3s_cross_tenancy_read_secrets_destination](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/identity_policy) | resource |
+| [oci_identity_policy.k3s_cross_tenancy_read_secrets_source](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/identity_policy) | resource |
 | [oci_load_balancer_backend_set.masters_backend_set](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/load_balancer_backend_set) | resource |
 | [oci_load_balancer_listener.k3s_api_server_listener](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/load_balancer_listener) | resource |
 | [oci_load_balancer_load_balancer.k3s_apiserver_load_balancer](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/load_balancer_load_balancer) | resource |
@@ -55,10 +56,14 @@ This module creates an Instance Pool dedicated to becoming either K3s masters or
 | <a name="input_ampere_a1_availability_domain"></a> [ampere\_a1\_availability\_domain](#input\_ampere\_a1\_availability\_domain) | If set, use this AD instead of a random one | `string` | `""` | no |
 | <a name="input_cloud_init_config"></a> [cloud\_init\_config](#input\_cloud\_init\_config) | The init.cfg templated file content | `string` | n/a | yes |
 | <a name="input_cloud_init_script"></a> [cloud\_init\_script](#input\_cloud\_init\_script) | The init.cfg templated file content | `string` | n/a | yes |
+| <a name="input_iam_secrets_ct_role"></a> [iam\_secrets\_ct\_role](#input\_iam\_secrets\_ct\_role) | Create cross-teanancy as source or destination | `string` | `"no_cross_tenancy"` | no |
 | <a name="input_k3s_bucket_names"></a> [k3s\_bucket\_names](#input\_k3s\_bucket\_names) | The Object Storage bucket names used by the cluster | `set(string)` | `[]` | no |
 | <a name="input_k3s_tags"></a> [k3s\_tags](#input\_k3s\_tags) | A map of defined tags to apply | `map(string)` | n/a | yes |
 | <a name="input_oci_availability_domains"></a> [oci\_availability\_domains](#input\_oci\_availability\_domains) | A list of Availability Domains for the provided Compartment | `map(string)` | n/a | yes |
 | <a name="input_oci_compartment_id"></a> [oci\_compartment\_id](#input\_oci\_compartment\_id) | The Compartment ID under which to provision resources | `string` | n/a | yes |
+| <a name="input_oci_iam_ct_remote_tenenacy"></a> [oci\_iam\_ct\_remote\_tenenacy](#input\_oci\_iam\_ct\_remote\_tenenacy) | The remote tenancy OCID | `string` | `""` | no |
+| <a name="input_oci_iam_noderole_groups"></a> [oci\_iam\_noderole\_groups](#input\_oci\_iam\_noderole\_groups) | The ID of the local and optionally remote K3s.NodeRole dynamic IAM groups | <pre>object({<br>    local  = string<br>    remote = optional(string)<br>  })</pre> | n/a | yes |
+| <a name="input_oci_lb_additional_subnet_ids"></a> [oci\_lb\_additional\_subnet\_ids](#input\_oci\_lb\_additional\_subnet\_ids) | A list of additional subnets that will be part of the Load Balancer | `list(string)` | `[]` | no |
 | <a name="input_oci_network_security_groups"></a> [oci\_network\_security\_groups](#input\_oci\_network\_security\_groups) | A map of available Network Security Groups | `map(any)` | n/a | yes |
 | <a name="input_oci_tenancy_id"></a> [oci\_tenancy\_id](#input\_oci\_tenancy\_id) | The Compartment ID under which to provision resources | `string` | n/a | yes |
 | <a name="input_oci_vcn_subnet_id"></a> [oci\_vcn\_subnet\_id](#input\_oci\_vcn\_subnet\_id) | The VCN subnet to provision Compute resources in | `string` | n/a | yes |

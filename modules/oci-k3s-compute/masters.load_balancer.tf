@@ -1,3 +1,16 @@
+# Variables
+variable "oci_network_security_groups" {
+  type        = map(any)
+  description = "A map of available Network Security Groups"
+}
+
+variable "oci_lb_additional_subnet_ids" {
+  type        = list(string)
+  description = "A list of additional subnets that will be part of the Load Balancer"
+  default     = []
+}
+
+# Resources
 resource "oci_load_balancer_listener" "k3s_api_server_listener" {
   count = local.is_master ? 1 : 0
 
@@ -35,7 +48,7 @@ resource "oci_load_balancer_load_balancer" "k3s_apiserver_load_balancer" {
 
   display_name = "k3s_apiserver_load_balancer"
   shape        = "flexible"
-  subnet_ids   = [var.oci_vcn_subnet_id]
+  subnet_ids   = concat([var.oci_vcn_subnet_id], var.oci_lb_additional_subnet_ids)
 
   ip_mode                    = "IPV4"
   is_private                 = false
