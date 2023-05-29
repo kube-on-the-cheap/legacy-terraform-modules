@@ -45,7 +45,6 @@
 | <a name="input_oci_networks_vcn_display_name"></a> [oci\_networks\_vcn\_display\_name](#input\_oci\_networks\_vcn\_display\_name) | The VCN display name | `string` | n/a | yes |
 | <a name="input_oci_networks_vcn_dns_label"></a> [oci\_networks\_vcn\_dns\_label](#input\_oci\_networks\_vcn\_dns\_label) | The DNS label for this VCN | `string` | n/a | yes |
 | <a name="input_oci_region"></a> [oci\_region](#input\_oci\_region) | The OCI Region | `string` | n/a | yes |
-| <a name="input_public_zone_name"></a> [public\_zone\_name](#input\_public\_zone\_name) | The FQDN of the zone used to access resources | `string` | n/a | yes |
 | <a name="input_shared_freeform_tags"></a> [shared\_freeform\_tags](#input\_shared\_freeform\_tags) | A map of shared freeform tags | `map(string)` | `{}` | no |
 
 ## Outputs

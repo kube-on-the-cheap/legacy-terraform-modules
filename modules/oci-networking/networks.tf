@@ -40,9 +40,10 @@ resource "oci_core_subnet" "vcn_ad_subnets" {
 
   compartment_id = var.oci_compartment_id
 
-  vcn_id            = oci_core_vcn.vcn.id
-  cidr_block        = module.subnet_addrs.network_cidr_blocks[each.key]
-  display_name      = format("%s-%s-subnet", data.oci_identity_compartment.compartment.name, lower(split(":", each.key)[1]))
-  security_list_ids = [oci_core_vcn.vcn.default_security_list_id]
-  freeform_tags     = var.shared_freeform_tags
+  availability_domain = each.key
+  vcn_id              = oci_core_vcn.vcn.id
+  cidr_block          = module.subnet_addrs.network_cidr_blocks[each.key]
+  display_name        = format("%s-%s-subnet", data.oci_identity_compartment.compartment.name, lower(split(":", each.key)[1]))
+  security_list_ids   = [oci_core_vcn.vcn.default_security_list_id]
+  freeform_tags       = var.shared_freeform_tags
 }
