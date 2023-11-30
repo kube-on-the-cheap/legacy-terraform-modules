@@ -21,15 +21,25 @@ terraform {
   required_providers {
     oci = {
       source  = "oracle/oci"
+<<<<<<< HEAD
       version = "5.22.0"
+=======
+      version = "4.87.0"
+>>>>>>> e30cd55 (chore: split compute in master and workers, fix masters)
     }
     tls = {
       source  = "hashicorp/tls"
       version = "4.0.1"
     }
+<<<<<<< HEAD
     cloudinit = {
       source  = "hashicorp/cloudinit"
       version = "2.3.3"
+=======
+    template = {
+      source  = "hashicorp/template"
+      version = "2.2.0"
+>>>>>>> e30cd55 (chore: split compute in master and workers, fix masters)
     }
     random = {
       source  = "hashicorp/random"
