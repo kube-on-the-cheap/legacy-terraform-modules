@@ -8,45 +8,45 @@ This module creates an Instance Pool dedicated to becoming either K3s masters or
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.4.0 |
-| <a name="requirement_oci"></a> [oci](#requirement\_oci) | 4.87.0 |
+| <a name="requirement_cloudinit"></a> [cloudinit](#requirement\_cloudinit) | 2.3.3 |
+| <a name="requirement_oci"></a> [oci](#requirement\_oci) | 5.22.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | 3.4.3 |
-| <a name="requirement_template"></a> [template](#requirement\_template) | 2.2.0 |
 | <a name="requirement_tls"></a> [tls](#requirement\_tls) | 4.0.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_oci"></a> [oci](#provider\_oci) | 4.87.0 |
+| <a name="provider_cloudinit"></a> [cloudinit](#provider\_cloudinit) | 2.3.3 |
+| <a name="provider_oci"></a> [oci](#provider\_oci) | 5.22.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | 3.4.3 |
-| <a name="provider_template"></a> [template](#provider\_template) | 2.2.0 |
 | <a name="provider_tls"></a> [tls](#provider\_tls) | 4.0.1 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [oci_core_instance_configuration.configuration_ampere_a1](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/core_instance_configuration) | resource |
-| [oci_core_instance_pool.ampere_a1](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/core_instance_pool) | resource |
-| [oci_identity_dynamic_group.k3s_masters](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/identity_dynamic_group) | resource |
-| [oci_identity_policy.k3s_allow_masters_ccm](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/identity_policy) | resource |
-| [oci_identity_policy.k3s_allow_masters_k3s_nodeinfo_tag](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/identity_policy) | resource |
-| [oci_identity_policy.k3s_allow_masters_read_secrets](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/identity_policy) | resource |
-| [oci_identity_policy.k3s_allow_masters_update_self](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/identity_policy) | resource |
-| [oci_identity_policy.k3s_allow_masters_write_buckets](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/identity_policy) | resource |
-| [oci_load_balancer_backend_set.masters_backend_set](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/load_balancer_backend_set) | resource |
-| [oci_load_balancer_listener.k3s_api_server_listener](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/load_balancer_listener) | resource |
-| [oci_load_balancer_load_balancer.k3s_apiserver_load_balancer](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/load_balancer_load_balancer) | resource |
+| [oci_core_instance_configuration.configuration_ampere_a1](https://registry.terraform.io/providers/oracle/oci/5.22.0/docs/resources/core_instance_configuration) | resource |
+| [oci_core_instance_pool.ampere_a1](https://registry.terraform.io/providers/oracle/oci/5.22.0/docs/resources/core_instance_pool) | resource |
+| [oci_identity_dynamic_group.k3s_masters](https://registry.terraform.io/providers/oracle/oci/5.22.0/docs/resources/identity_dynamic_group) | resource |
+| [oci_identity_policy.k3s_allow_masters_ccm](https://registry.terraform.io/providers/oracle/oci/5.22.0/docs/resources/identity_policy) | resource |
+| [oci_identity_policy.k3s_allow_masters_k3s_nodeinfo_tag](https://registry.terraform.io/providers/oracle/oci/5.22.0/docs/resources/identity_policy) | resource |
+| [oci_identity_policy.k3s_allow_masters_read_secrets](https://registry.terraform.io/providers/oracle/oci/5.22.0/docs/resources/identity_policy) | resource |
+| [oci_identity_policy.k3s_allow_masters_update_self](https://registry.terraform.io/providers/oracle/oci/5.22.0/docs/resources/identity_policy) | resource |
+| [oci_identity_policy.k3s_allow_masters_write_buckets](https://registry.terraform.io/providers/oracle/oci/5.22.0/docs/resources/identity_policy) | resource |
+| [oci_load_balancer_backend_set.masters_backend_set](https://registry.terraform.io/providers/oracle/oci/5.22.0/docs/resources/load_balancer_backend_set) | resource |
+| [oci_load_balancer_listener.k3s_api_server_listener](https://registry.terraform.io/providers/oracle/oci/5.22.0/docs/resources/load_balancer_listener) | resource |
+| [oci_load_balancer_load_balancer.k3s_apiserver_load_balancer](https://registry.terraform.io/providers/oracle/oci/5.22.0/docs/resources/load_balancer_load_balancer) | resource |
 | [random_shuffle.ampere_a1_ad](https://registry.terraform.io/providers/hashicorp/random/3.4.3/docs/resources/shuffle) | resource |
 | [random_shuffle.ampere_a1_fd](https://registry.terraform.io/providers/hashicorp/random/3.4.3/docs/resources/shuffle) | resource |
 | [tls_private_key.root_ssh_key](https://registry.terraform.io/providers/hashicorp/tls/4.0.1/docs/resources/private_key) | resource |
-| [oci_core_images.amd_instances](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/data-sources/core_images) | data source |
-| [oci_core_images.ampere_a1_instances](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/data-sources/core_images) | data source |
-| [oci_core_instance_pool_instances.instance_pool_instances](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/data-sources/core_instance_pool_instances) | data source |
-| [oci_identity_fault_domains.fd](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/data-sources/identity_fault_domains) | data source |
-| [oci_objectstorage_namespace.namespace](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/data-sources/objectstorage_namespace) | data source |
-| [oci_objectstorage_object.kubeconfig](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/data-sources/objectstorage_object) | data source |
-| [template_cloudinit_config.cloudinit](https://registry.terraform.io/providers/hashicorp/template/2.2.0/docs/data-sources/cloudinit_config) | data source |
+| [cloudinit_config.cloudinit](https://registry.terraform.io/providers/hashicorp/cloudinit/2.3.3/docs/data-sources/config) | data source |
+| [oci_core_images.amd_instances](https://registry.terraform.io/providers/oracle/oci/5.22.0/docs/data-sources/core_images) | data source |
+| [oci_core_images.ampere_a1_instances](https://registry.terraform.io/providers/oracle/oci/5.22.0/docs/data-sources/core_images) | data source |
+| [oci_core_instance_pool_instances.instance_pool_instances](https://registry.terraform.io/providers/oracle/oci/5.22.0/docs/data-sources/core_instance_pool_instances) | data source |
+| [oci_identity_fault_domains.fd](https://registry.terraform.io/providers/oracle/oci/5.22.0/docs/data-sources/identity_fault_domains) | data source |
+| [oci_objectstorage_namespace.namespace](https://registry.terraform.io/providers/oracle/oci/5.22.0/docs/data-sources/objectstorage_namespace) | data source |
+| [oci_objectstorage_object.kubeconfig](https://registry.terraform.io/providers/oracle/oci/5.22.0/docs/data-sources/objectstorage_object) | data source |
 
 ## Inputs
 
