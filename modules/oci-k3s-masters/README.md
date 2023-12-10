@@ -28,11 +28,12 @@ This module creates an Instance Pool dedicated to becoming either K3s masters or
 |------|------|
 | [oci_core_instance_configuration.configuration_ampere_a1](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/core_instance_configuration) | resource |
 | [oci_core_instance_pool.ampere_a1](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/core_instance_pool) | resource |
-| [oci_identity_dynamic_group.k3s_nodes](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/identity_dynamic_group) | resource |
+| [oci_identity_dynamic_group.k3s_masters](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/identity_dynamic_group) | resource |
+| [oci_identity_policy.k3s_allow_masters_ccm](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/identity_policy) | resource |
+| [oci_identity_policy.k3s_allow_masters_k3s_nodeinfo_tag](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/identity_policy) | resource |
+| [oci_identity_policy.k3s_allow_masters_read_secrets](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/identity_policy) | resource |
+| [oci_identity_policy.k3s_allow_masters_update_self](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/identity_policy) | resource |
 | [oci_identity_policy.k3s_allow_masters_write_buckets](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/identity_policy) | resource |
-| [oci_identity_policy.k3s_allow_nodes_ccm](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/identity_policy) | resource |
-| [oci_identity_policy.k3s_allow_nodes_read_secrets](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/identity_policy) | resource |
-| [oci_identity_policy.k3s_allow_nodes_update_self](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/identity_policy) | resource |
 | [oci_load_balancer_backend_set.masters_backend_set](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/load_balancer_backend_set) | resource |
 | [oci_load_balancer_listener.k3s_api_server_listener](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/load_balancer_listener) | resource |
 | [oci_load_balancer_load_balancer.k3s_apiserver_load_balancer](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/load_balancer_load_balancer) | resource |
@@ -56,7 +57,8 @@ This module creates an Instance Pool dedicated to becoming either K3s masters or
 | <a name="input_cloud_init_config"></a> [cloud\_init\_config](#input\_cloud\_init\_config) | The init.cfg templated file content | `string` | n/a | yes |
 | <a name="input_cloud_init_script"></a> [cloud\_init\_script](#input\_cloud\_init\_script) | The init.cfg templated file content | `string` | n/a | yes |
 | <a name="input_k3s_bucket_names"></a> [k3s\_bucket\_names](#input\_k3s\_bucket\_names) | The Object Storage bucket names used by the cluster | `set(string)` | `[]` | no |
-| <a name="input_k3s_tags"></a> [k3s\_tags](#input\_k3s\_tags) | A map of defined tags to apply | `map(string)` | n/a | yes |
+| <a name="input_k3s_tags_config"></a> [k3s\_tags\_config](#input\_k3s\_tags\_config) | A map of defined tags to apply | `map(string)` | n/a | yes |
+| <a name="input_k3s_tags_secrets"></a> [k3s\_tags\_secrets](#input\_k3s\_tags\_secrets) | A map of secret tags to apply | `map(string)` | n/a | yes |
 | <a name="input_oci_availability_domains"></a> [oci\_availability\_domains](#input\_oci\_availability\_domains) | A list of Availability Domains for the provided Compartment | `map(string)` | n/a | yes |
 | <a name="input_oci_compartment_id"></a> [oci\_compartment\_id](#input\_oci\_compartment\_id) | The Compartment ID under which to provision resources | `string` | n/a | yes |
 | <a name="input_oci_network_security_groups"></a> [oci\_network\_security\_groups](#input\_oci\_network\_security\_groups) | A map of available Network Security Groups | `map(any)` | n/a | yes |
@@ -72,7 +74,7 @@ This module creates an Instance Pool dedicated to becoming either K3s masters or
 | <a name="output_images"></a> [images](#output\_images) | n/a |
 | <a name="output_instances_ids"></a> [instances\_ids](#output\_instances\_ids) | A set of IDs of the provisioned instances in state 'Running' |
 | <a name="output_kubeconfig"></a> [kubeconfig](#output\_kubeconfig) | The K3s cluster administrative Kubeconfig |
-| <a name="output_oci_lb_ip"></a> [oci\_lb\_ip](#output\_oci\_lb\_ip) | The IP address of the provisioned API Load Balancer. Empty for workers. |
+| <a name="output_oci_lb_ip"></a> [oci\_lb\_ip](#output\_oci\_lb\_ip) | The IP address of the provisioned API Load Balancer. |
 | <a name="output_rsa_private_key"></a> [rsa\_private\_key](#output\_rsa\_private\_key) | The RSA key used to connect to the instances via SSH |
 | <a name="output_rsa_public_key"></a> [rsa\_public\_key](#output\_rsa\_public\_key) | The RSA public key used to connect to the instances via SSH |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
