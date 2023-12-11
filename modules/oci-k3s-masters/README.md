@@ -30,7 +30,6 @@ This module creates an Instance Pool dedicated to becoming either K3s masters or
 | [oci_core_instance_pool.ampere_a1](https://registry.terraform.io/providers/oracle/oci/5.22.0/docs/resources/core_instance_pool) | resource |
 | [oci_identity_dynamic_group.k3s_masters](https://registry.terraform.io/providers/oracle/oci/5.22.0/docs/resources/identity_dynamic_group) | resource |
 | [oci_identity_policy.k3s_allow_masters_ccm](https://registry.terraform.io/providers/oracle/oci/5.22.0/docs/resources/identity_policy) | resource |
-| [oci_identity_policy.k3s_allow_masters_k3s_nodeinfo_tag](https://registry.terraform.io/providers/oracle/oci/5.22.0/docs/resources/identity_policy) | resource |
 | [oci_identity_policy.k3s_allow_masters_read_secrets](https://registry.terraform.io/providers/oracle/oci/5.22.0/docs/resources/identity_policy) | resource |
 | [oci_identity_policy.k3s_allow_masters_update_self](https://registry.terraform.io/providers/oracle/oci/5.22.0/docs/resources/identity_policy) | resource |
 | [oci_identity_policy.k3s_allow_masters_write_buckets](https://registry.terraform.io/providers/oracle/oci/5.22.0/docs/resources/identity_policy) | resource |
