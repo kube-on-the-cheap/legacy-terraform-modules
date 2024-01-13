@@ -30,6 +30,7 @@
 | [oci_core_network_security_group_security_rule.permit_https](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/core_network_security_group_security_rule) | resource |
 | [oci_core_network_security_group_security_rule.permit_https_alt](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/core_network_security_group_security_rule) | resource |
 | [oci_core_network_security_group_security_rule.permit_ssh](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/core_network_security_group_security_rule) | resource |
+| [oci_core_subnet.lb_regional_subnets](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/core_subnet) | resource |
 | [oci_core_subnet.vcn_ad_subnets](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/core_subnet) | resource |
 | [oci_core_subnet.vcn_regional_subnet](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/core_subnet) | resource |
 | [oci_core_vcn.vcn](https://registry.terraform.io/providers/oracle/oci/4.87.0/docs/resources/core_vcn) | resource |
@@ -55,4 +56,5 @@
 | <a name="output_network_security_groups"></a> [network\_security\_groups](#output\_network\_security\_groups) | n/a |
 | <a name="output_vcn_ad_subnets"></a> [vcn\_ad\_subnets](#output\_vcn\_ad\_subnets) | n/a |
 | <a name="output_vcn_regional_subnet"></a> [vcn\_regional\_subnet](#output\_vcn\_regional\_subnet) | n/a |
+| <a name="output_vcn_regional_subnets_lbs"></a> [vcn\_regional\_subnets\_lbs](#output\_vcn\_regional\_subnets\_lbs) | n/a |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
