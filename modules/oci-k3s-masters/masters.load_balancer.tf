@@ -50,9 +50,6 @@ resource "oci_load_balancer_load_balancer" "k3s_apiserver_load_balancer" {
   }
 }
 
-# Outputs
-
 output "oci_lb_ip" {
   value       = one([for ip in oci_load_balancer_load_balancer.k3s_apiserver_load_balancer.ip_address_details : ip.ip_address if ip.is_public])
   description = "The IP address of the provisioned API Load Balancer."
-}

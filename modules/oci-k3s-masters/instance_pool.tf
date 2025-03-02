@@ -70,7 +70,11 @@ resource "oci_core_instance_pool" "ampere_a1" {
   freeform_tags  = merge(var.shared_freeform_tags, local.masters_freeform_tags)
 
   instance_configuration_id = oci_core_instance_configuration.configuration_ampere_a1[each.key].id
+<<<<<<< HEAD
   display_name              = format("k3s_masters_ampere_a1_%s", each.key)
+=======
+  display_name              = format("k3s_%ss_ampere_a1_%s", local.node_role, each.key)
+>>>>>>> e30cd55 (chore: split compute in master and workers, fix masters)
   size                      = each.value
 
   placement_configurations {
@@ -80,8 +84,8 @@ resource "oci_core_instance_pool" "ampere_a1" {
   }
 
   load_balancers {
-    backend_set_name = one(oci_load_balancer_backend_set.masters_backend_set[*].name)
-    load_balancer_id = one(oci_load_balancer_load_balancer.k3s_apiserver_load_balancer[*].id)
+    backend_set_name = oci_load_balancer_backend_set.masters_backend_set.name
+    load_balancer_id = oci_load_balancer_load_balancer.k3s_apiserver_load_balancer.id
     port             = 6443
     vnic_selection   = "PrimaryVnic"
   }
